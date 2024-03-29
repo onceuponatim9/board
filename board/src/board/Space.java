@@ -64,6 +64,7 @@ public class Space {
 	}
 	
 	public void leave() {
+		 
 		
 	}
 	
