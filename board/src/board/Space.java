@@ -65,11 +65,20 @@ public class Space {
 	
 	public void leave() {
 		 
-		
 	}
 	
 	public void login() {
+		String id = inputString("id");
+		String pw = inputString("pw");
 		
+		log = um.getUserLogByIdAndPassword(id, pw);
+		
+		if(log == -1) {
+			System.out.println("로그인 정보가 일치하지 않습니다.");
+			return;
+		}
+		
+		System.out.println("로그인 성공");
 	}
 	
 	public void logout() {

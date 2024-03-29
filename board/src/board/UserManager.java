@@ -24,16 +24,32 @@ public class UserManager {
 	}
 	
 	public String findUserId(String id) {
-		System.out.println(map.keySet());
 		for (User user : map.keySet()) {
-			System.out.println(user.getId());
 			if (user.getId().equals(id))
 				return user.getId();
 		}
 		return null;
 	}
 	
+//	public User findUserByLog(int log) {
+//		for (User user : map.keySet()) {
+//			
+//		}
+//	}
+	
+	public int getUserLogByIdAndPassword(String id, String password) {
+		int log = -1;
+		int n = 0;
+		for (User user : map.keySet()) {
+			if(user.getId().equals(id) && user.getPassword().equals(password))
+				log = n;
+			n++;
+		}
+		return log;
+	}
+	
 	public int getUserCount() {
 		return this.map.size();
 	}
+	
 }
