@@ -47,9 +47,9 @@ public class Space {
 	}
 	
 	public void join() {
-		String name = inputString("name");
-		String id = inputString("id");
-		String pw = inputString("pw");
+		String name = inputString("name : ");
+		String id = inputString("id : ");
+		String pw = inputString("pw : ");
 		
 		String userId = um.findUserId(id);
 		
@@ -65,7 +65,8 @@ public class Space {
 	
 	public void leave() {
 		User user = um.getUserByLog(log);
-		String pw = inputString("pw");
+		String pw = inputString("pw : ");
+		
 		if(!user.getPassword().equals(pw)) {
 			System.out.println("비밀번호가 일치하지 않습니다.");
 			return;
@@ -78,8 +79,8 @@ public class Space {
 	}
 	
 	public void login() {
-		String id = inputString("id");
-		String pw = inputString("pw");
+		String id = inputString("id : ");
+		String pw = inputString("pw : ");
 		
 		log = um.getUserLogByIdAndPassword(id, pw);
 		
@@ -131,27 +132,60 @@ public class Space {
 		System.out.println("선택한 게시글이 삭제되었습니다.");
 	}
 	
-	private void updateContext() {
+	private void updateContext(String message) {
 		// 게시물 수정
 		// 내 게시글 목록 (번호, 제목) 보여주기
 		// 번호 선택하면 해당 게시글로 보여주기
+		// 제목 수정 yes or no
+		// 내용 수정 yes or no
+		
+		int index = printContext("수정");
+		
+		Board board = um.getBoardByLog(log);
+		Context context = board.get(index);
+		
+		int sel = inputNumber("제목 수정 1)yes 2)no : ");
+		if(sel < 1 || sel > 2) {
+			System.out.println("유효한 메뉴 번호가 아닙니다.");
+			return;
+		}
+		
+		if(sel == 1) {
+			String title = inputString("제목 입력 >> ");
+			board.get(index).setTitle(title);
+		}
+		
+		sel = inputNumber("내용 수정 1)yes 2)no : ");
+		if(sel < 1 || sel > 2) {
+			System.out.println("유효한 메뉴 번호가 아닙니다.");
+			return;
+		}
+		
+		if(sel == 1) {
+			String text = inputString("내용 입력 >> ");
+			board.get(index).setText(text);
+		}
+		
+		System.out.println("게시글이 성공적으로 수정되었습니다.");
 	}
 	
-	private void printContext() {
+	private int printContext(String message) {
 		showContextsInfo();
 		
-		int index = inputNumber("조회할 게시글 번호") - 1;
+		int index = inputNumber(message + "할 게시글 번호") - 1;
 		Board board = um.getBoardByLog(log);
 		
 		if(index < 0 || index >= board.getContextCount()) {
 			System.out.println("유효한 게시글 번호가 아닙니다.");
-			return;
+			return -1;
 		}
 		
 		Context context = board.get(index);
 		
 		System.out.println("제목 >> " + context.getTitle());
 		System.out.println("내용 >> " + context.getText());
+		
+		return index;
 	}
 	
 	private void saveMyBoard() {
@@ -179,9 +213,9 @@ public class Space {
 		else if(select == 2)
 			deleteContext();
 		else if(select == 3)
-			updateContext();
+			updateContext("수정");
 		else if(select == 4)
-			printContext();
+			printContext("조회");
 	}
 	
 	private void printMenu() {
