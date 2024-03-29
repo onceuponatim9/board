@@ -36,5 +36,4 @@ public class UserManager {
 	public int getUserCount() {
 		return this.map.size();
 	}
-
 }
