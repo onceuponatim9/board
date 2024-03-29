@@ -98,12 +98,21 @@ public class Space {
 	
 	private void createContext() {
 		// 게시물 추가
+		String title = inputString("제목 >>");
 		String text = inputString("내용 입력 >>");
-		Context context = new Context(text);
+		Context context = new Context(title, text);
 		//User user = um.getUserByLog(log);
 		Board board = um.getBoardByLog(log);
 		board.addContext(context);
 		System.out.println("게시물 업로드 완료");
+	}
+	
+	private void showContextsInfo() {
+		Board board = um.getBoardByLog(log);
+		for(int i = 0; i < board.getContextCount(); i++) {
+			Context context = board.get(i);
+			System.out.printf("%d) %s\n", i + 1, context.getTitle());
+		}
 	}
 	
 	private void deleteContext() {

@@ -27,9 +27,13 @@ public class Board {
 		Context context = contexts.get(index);
 	}
 	
-	public String get(int index) {
+	public Context get(int index) {
 		// 해당 페이지 출력하기
-		return "";
+		return contexts.get(index);
+	}
+	
+	public int getContextCount() {
+		return contexts.size();
 	}
 
 }
