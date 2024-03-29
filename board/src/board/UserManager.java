@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class UserManager {
 	Map<User, Board> map = new HashMap<User, Board>();
-	//private ArrayList<User> users = new ArrayList<User>();
 	
 	public UserManager() {
 		
@@ -66,22 +65,10 @@ public class UserManager {
 	}
 	
 	public Board getBoardByLog(int log) {
-//		ArrayList<User> users = new ArrayList<User>();
-//		ArrayList<Board> boards = new ArrayList<Board>();
-//		System.out.println(users.size());
-//		System.out.println(boards.size());
 		User user = getUserByLog(log);
 		Board board = map.get(user);
 		
 		return board;
-		
-//		for(int i = 0; i < getUserCount(); i++) {
-//			User user = users.get(i);
-//			
-//			if(board.getId().equals(user.getId()))
-//				return board;
-//		}
-//		return null;
 	}
 	
 	public int getUserCount() {

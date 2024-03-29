@@ -28,7 +28,6 @@ public class Board {
 	}
 	
 	public Context get(int index) {
-		// 해당 페이지 출력하기
 		return contexts.get(index);
 	}
 	

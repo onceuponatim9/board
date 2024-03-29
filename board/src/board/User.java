@@ -3,7 +3,6 @@ package board;
 public class User {
 	private String name;
 	private String id, password;
-	//private Board board;
 	
 	public User() {
 		
@@ -13,7 +12,6 @@ public class User {
 		this.name = name;
 		this.id = id;
 		this.password = password;
-		//board = new Board(id);
 	}
 	
 	public String getName() {

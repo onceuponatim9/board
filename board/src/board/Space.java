@@ -192,14 +192,6 @@ public class Space {
 		
 	}
 	
-	private void nextPage() {
-		
-	}
-	
-	private void previousPage() {
-		
-	}
-	
 	private void printMyPage() {
 		System.out.println("1. 게시글 추가");
 		System.out.println("2. 게시글 삭제");
