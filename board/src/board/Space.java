@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -98,15 +96,27 @@ public class Space {
 		System.out.println("로그아웃 완료");
 	}
 	
-	private void writeContext() {
-		
-	}
-	
-	private void saveMyBoard() {
-		
+	private void createContext() {
+		// 게시물 추가
+		String text = inputString("내용 입력 >>");
+		Context context = new Context(text);
+		//User user = um.getUserByLog(log);
+		Board board = um.getBoardByLog(log);
+		board.addContext(context);
+		System.out.println("게시물 업로드 완료");
 	}
 	
 	private void deleteContext() {
+		
+	}
+	
+	private void updateContext() {
+		// 게시물 수정
+		// 내 게시글 목록 (번호, 제목) 보여주기
+		// 번호 선택하면 해당 게시글로 보여주기
+	}
+	
+	private void saveMyBoard() {
 		
 	}
 	
@@ -118,8 +128,19 @@ public class Space {
 		
 	}
 	
-	private void myBoard() {
-		
+	private void printMyPage() {
+		System.out.println("1. 게시글 추가");
+		System.out.println("2. 게시글 삭제");
+		System.out.println("3. 게시글 수정");
+	}
+	
+	private void runMyPage(int select) {
+		if(select == 1)
+			createContext();
+		else if(select == 2)
+			deleteContext();
+		else if(select == 3)
+			updateContext();
 	}
 	
 	private void printMenu() {
@@ -137,8 +158,14 @@ public class Space {
 			login();
 		else if(select == 2 && log != -1)
 			logout();
-		else if(select == 3)
-			myBoard();
+		else if(select == 3) {
+			if(log == -1) {
+				System.out.println("로그인 후 이용 가능한 메뉴입니다.");
+				return;
+			}
+			printMyPage();
+			runMyPage(inputNumber(""));
+		}
 	}
 	
 	public void run() {

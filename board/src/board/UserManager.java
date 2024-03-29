@@ -14,7 +14,7 @@ public class UserManager {
 	
 	public User createUser(String name, String id, String password) {
 		User user = new User(name, id, password);
-		Board board = new Board();
+		Board board = new Board(id);
 		map.put(user, board);
 		return user.clone();
 	}
@@ -63,6 +63,25 @@ public class UserManager {
 			n++;
 		}
 		return log;
+	}
+	
+	public Board getBoardByLog(int log) {
+//		ArrayList<User> users = new ArrayList<User>();
+//		ArrayList<Board> boards = new ArrayList<Board>();
+//		System.out.println(users.size());
+//		System.out.println(boards.size());
+		User user = getUserByLog(log);
+		Board board = map.get(user);
+		
+		return board;
+		
+//		for(int i = 0; i < getUserCount(); i++) {
+//			User user = users.get(i);
+//			
+//			if(board.getId().equals(user.getId()))
+//				return board;
+//		}
+//		return null;
 	}
 	
 	public int getUserCount() {
