@@ -116,13 +116,28 @@ public class Space {
 	}
 	
 	private void deleteContext() {
+		showContextsInfo();
 		
+		int index = inputNumber("삭제할 게시글 번호") - 1;
+		Board board = um.getBoardByLog(log);
+		
+		if(index < 0 || index >= board.getContextCount()) {
+			System.out.println("유효한 게시글 번호가 아닙니다.");
+			return;
+		}
+		
+		board.deleteContext(index);
+		System.out.println("선택한 게시글이 삭제되었습니다.");
 	}
 	
 	private void updateContext() {
 		// 게시물 수정
 		// 내 게시글 목록 (번호, 제목) 보여주기
 		// 번호 선택하면 해당 게시글로 보여주기
+	}
+	
+	private void printContext() {
+		
 	}
 	
 	private void saveMyBoard() {
@@ -141,6 +156,7 @@ public class Space {
 		System.out.println("1. 게시글 추가");
 		System.out.println("2. 게시글 삭제");
 		System.out.println("3. 게시글 수정");
+		System.out.println("4. 게시글 보기");
 	}
 	
 	private void runMyPage(int select) {
@@ -150,6 +166,8 @@ public class Space {
 			deleteContext();
 		else if(select == 3)
 			updateContext();
+		else if(select == 4)
+			printContext();
 	}
 	
 	private void printMenu() {
