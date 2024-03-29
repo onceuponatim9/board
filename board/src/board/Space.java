@@ -42,7 +42,7 @@ public class Space {
 	}
 	
 	private String inputString(String message) {
-		System.out.print(message + " : ");
+		System.out.print(message);
 		return scan.next();
 	}
 	
@@ -98,11 +98,12 @@ public class Space {
 	
 	private void createContext() {
 		// 게시물 추가
-		String title = inputString("제목 >>");
-		String text = inputString("내용 입력 >>");
+		String title = inputString("제목 입력 >> ");
+		String text = inputString("내용 입력 >> ");
+		
 		Context context = new Context(title, text);
-		//User user = um.getUserByLog(log);
 		Board board = um.getBoardByLog(log);
+		
 		board.addContext(context);
 		System.out.println("게시물 업로드 완료");
 	}
@@ -137,7 +138,20 @@ public class Space {
 	}
 	
 	private void printContext() {
+		showContextsInfo();
 		
+		int index = inputNumber("조회할 게시글 번호") - 1;
+		Board board = um.getBoardByLog(log);
+		
+		if(index < 0 || index >= board.getContextCount()) {
+			System.out.println("유효한 게시글 번호가 아닙니다.");
+			return;
+		}
+		
+		Context context = board.get(index);
+		
+		System.out.println("제목 >> " + context.getTitle());
+		System.out.println("내용 >> " + context.getText());
 	}
 	
 	private void saveMyBoard() {

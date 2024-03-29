@@ -12,5 +12,9 @@ public class Context {
 	public String getTitle() {
 		return this.title;
 	}
+	
+	public String getText() {
+		return this.text;
+	}
 
 }
