@@ -19,8 +19,8 @@ public class UserManager {
 		return user.clone();
 	}
 	
-	public void removeUser(int index) {
-		map.remove(index);
+	public void removeUser(User user) {
+		map.remove(user);
 	}
 	
 	public String findUserId(String id) {
@@ -31,11 +31,28 @@ public class UserManager {
 		return null;
 	}
 	
-//	public User findUserByLog(int log) {
-//		for (User user : map.keySet()) {
-//			
-//		}
-//	}
+	public User findUserById(String id) {
+		
+		for (User user : map.keySet()) {
+			if(user.getId().equals(id))
+				return user;
+		}
+		return null;
+	}
+	
+	public User getUserByLog(int log) {
+		ArrayList<User> users = new ArrayList<User>();
+		for (User user : map.keySet()) {
+			users.add(user);
+		}
+		
+		for(int i = 0; i < getUserCount(); i++) {
+			User user = users.get(i);
+			if(users.get(log).getId().equals(user.getId()))
+				return user;
+		}
+		return null;
+	}
 	
 	public int getUserLogByIdAndPassword(String id, String password) {
 		int log = -1;

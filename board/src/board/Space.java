@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -64,7 +66,17 @@ public class Space {
 	}
 	
 	public void leave() {
-		 
+		User user = um.getUserByLog(log);
+		String pw = inputString("pw");
+		if(!user.getPassword().equals(pw)) {
+			System.out.println("비밀번호가 일치하지 않습니다.");
+			return;
+		}
+		
+		um.removeUser(user);
+		
+		log = -1;
+		System.out.println("회원탈퇴 완료");
 	}
 	
 	public void login() {
@@ -82,7 +94,8 @@ public class Space {
 	}
 	
 	public void logout() {
-		
+		log = -1;
+		System.out.println("로그아웃 완료");
 	}
 	
 	private void writeContext() {
