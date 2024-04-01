@@ -223,7 +223,7 @@ public class Space {
 		}
 	}
 	
-	private void loadDataOfBoards() {
+	private void loadDataOfBoards(FileReader fr, BufferedReader br) {
 		map = new HashMap<User, Board>();
 		
 		try {
@@ -260,7 +260,7 @@ public class Space {
 				fr = new FileReader(file);
 				br = new BufferedReader(fr);
 				
-				loadDataOfBoards();
+				loadDataOfBoards(fr, br);
 				
 				fr.close();
 				br.close();
