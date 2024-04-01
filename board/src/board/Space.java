@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -189,54 +188,8 @@ public class Space {
 		return index;
 	}
 	
-	private String createDataString() {
-		String data = "";
-		
-		for (User user : map.keySet()) {
-			data += user.getName() + "/";
-			Board board = um.getBoardByUser(user);
-			
-			for(int i = 0; i < board.getContextCount(); i++) {
-				data += board.get(i).getTitle() + "/" + board.get(i).getText();
-				if(i < board.getContextCount() - 1)
-					data += "/";
-			}
-			data += "\n";
-		}
-		
-		return data;
-	}
-	
 	private void saveMyBoard() {
-		// name1/id1/password1/title1/text1/title2/text2
-		// name2/id2/password2/title1/text1/title2/text2/title3/text3
 		
-		String data = createDataString();
-		try {
-			fw = new FileWriter(file);
-			fw.write(data);
-			fw.close();
-			
-		}catch(IOException e) {
-			System.err.println("파일저장 실패");
-		}
-	}
-	
-	private void loadMyBoard() {
-		if(file.exists()){		
-			try {
-				fr = new FileReader(file);
-				br = new BufferedReader(fr);
-				fr.close();
-				br.close();
-				
-			}catch(IOException e) {
-				e.printStackTrace();
-				System.err.println("파일로드 실패");
-			}
-		}else {
-			System.err.println("파일이 존재하지 않습니다.");
-		}
 	}
 	
 	private void printMyPage() {
@@ -284,13 +237,11 @@ public class Space {
 	
 	public void run() {
 		while(true) {
-			loadMyBoard();
 			System.out.println("회원 " + um.getUserCount() + "명");
 			System.out.println("log = " + log);
 			printMenu();
 			int select = inputNumber("menu");
 			runMenu(select);
-			saveMyBoard();
 		}
 	}
 }
