@@ -71,6 +71,11 @@ public class UserManager {
 		return board;
 	}
 	
+	public Board getBoardByUser(User user) {
+		Board board = map.get(user);
+		return board;
+	}
+	
 	public int getUserCount() {
 		return this.map.size();
 	}
