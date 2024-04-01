@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Space {
 	private Scanner scan = new Scanner(System.in);
 	
-	Map<User, Board> map = null;
+	private Map<User, Board> map;
 	private UserManager um = null;
 	
 	private String fileName = "board.txt";
@@ -26,8 +26,9 @@ public class Space {
 	private int log = -1;
 	
 	public Space() {
-		map = new HashMap<User, Board>();
-		um = new UserManager();
+//		map = new HashMap<User, Board>();
+		um = UserManager.getInstance();
+		map = um.cloneMap();
 	}
 	
 	private int inputNumber(String message) {
@@ -46,6 +47,11 @@ public class Space {
 	private String inputString(String message) {
 		System.out.print(message);
 		return scan.next();
+	}
+	
+	private String inputText(String message) {
+		System.out.print(message);
+		return scan.nextLine();
 	}
 	
 	public void join() {
@@ -101,8 +107,15 @@ public class Space {
 	
 	private void createContent() {
 		// 게시물 추가
-		String title = inputString("제목 입력 >> ");
-		String text = inputString("내용 입력 >> ");
+		//String title = inputString("제목 입력 >> ");
+		System.out.print("제목 입력 >> ");
+		scan.nextLine();
+		String title = scan.nextLine();
+		
+		//String text = inputString("내용 입력 >> ");
+		System.out.print("내용 입력 >> ");
+		String text = scan.nextLine();
+		//System.out.println(scan.nextLine());
 		
 		Content context = new Content(title, text);
 		Board board = um.getBoardByLog(log);
@@ -214,7 +227,7 @@ public class Space {
 			}
 			data += "\n";
 		}
-		System.out.println(data);
+		
 		return data;
 	}
 	
@@ -224,10 +237,13 @@ public class Space {
 		// name3/id3/password3/
 		
 		String data = createDataString();
+		System.out.println(data);
 		try {
 			fw = new FileWriter(file);
 			fw.write(data);
 			fw.close();
+			
+			System.out.println("파일저장 성공");
 			
 		}catch(IOException e) {
 			System.err.println("파일저장 실패");
@@ -235,7 +251,7 @@ public class Space {
 	}
 	
 	private void loadDataOfBoards(FileReader fr, BufferedReader br) {
-		map = new HashMap<User, Board>();
+		//map = new HashMap<User, Board>();
 		
 		try {
 			while(br.ready()) {
@@ -275,6 +291,7 @@ public class Space {
 				
 				fr.close();
 				br.close();
+				System.out.println("파일로드 성공");
 				
 			}catch(IOException e) {
 				e.printStackTrace();
@@ -329,8 +346,9 @@ public class Space {
 	}
 	
 	public void run() {
+		loadMyBoard();
 		while(true) {
-			loadMyBoard();
+			System.out.println(map.size());
 			System.out.println("회원 " + um.getUserCount() + "명");
 			System.out.println("log = " + log);
 			printMenu();
