@@ -26,7 +26,6 @@ public class Space {
 	private int log = -1;
 	
 	public Space() {
-//		map = new HashMap<User, Board>();
 		um = UserManager.getInstance();
 		map = um.cloneMap();
 	}
@@ -237,7 +236,6 @@ public class Space {
 		// name3/id3/password3/
 		
 		String data = createDataString();
-		System.out.println(data);
 		try {
 			fw = new FileWriter(file);
 			fw.write(data);
@@ -348,7 +346,6 @@ public class Space {
 	public void run() {
 		loadMyBoard();
 		while(true) {
-			System.out.println(map.size());
 			System.out.println("회원 " + um.getUserCount() + "명");
 			System.out.println("log = " + log);
 			printMenu();
