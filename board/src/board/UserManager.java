@@ -5,10 +5,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserManager {
-	Map<User, Board> map = new HashMap<User, Board>();
+	private static final Map<User, Board> map = new HashMap<User, Board>();
 	
-	public UserManager() {
+	private UserManager() {
 		
+	}
+	
+	private static UserManager instance = new UserManager();
+	public static UserManager getInstance() {
+		return instance;
+	}
+	
+	public Map cloneMap() {
+		return map;
 	}
 	
 	public User createUser(String name, String id, String password) {
