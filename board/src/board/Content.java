@@ -1,10 +1,10 @@
 package board;
 
-public class Context {
+public class Content {
 	private String title;
 	private String text;
 	
-	public Context(String title, String text) {
+	public Content(String title, String text) {
 		this.title = title;
 		this.text = text;
 	}
