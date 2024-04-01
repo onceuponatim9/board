@@ -31,7 +31,6 @@ public class UserManager {
 	}
 	
 	public User findUserById(String id) {
-		
 		for (User user : map.keySet()) {
 			if(user.getId().equals(id))
 				return user;
@@ -68,6 +67,11 @@ public class UserManager {
 		User user = getUserByLog(log);
 		Board board = map.get(user);
 		
+		return board;
+	}
+	
+	public Board getBoardByUser(User user) {
+		Board board = map.get(user);
 		return board;
 	}
 	
