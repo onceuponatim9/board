@@ -214,13 +214,14 @@ public class Space {
 			}
 			data += "\n";
 		}
-		
+		System.out.println(data);
 		return data;
 	}
 	
 	private void saveMyBoard() {
 		// name1/id1/password1/title1/text1/title2/text2
 		// name2/id2/password2/title1/text1/title2/text2/title3/text3
+		// name3/id3/password3/
 		
 		String data = createDataString();
 		try {
