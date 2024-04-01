@@ -99,7 +99,7 @@ public class Space {
 		System.out.println("로그아웃 완료");
 	}
 	
-	private void createContext() {
+	private void createContent() {
 		// 게시물 추가
 		String title = inputString("제목 입력 >> ");
 		String text = inputString("내용 입력 >> ");
@@ -111,7 +111,7 @@ public class Space {
 		System.out.println("게시물 업로드 완료");
 	}
 	
-	private void showContextsInfo() {
+	private void showContentsInfo() {
 		Board board = um.getBoardByLog(log);
 		for(int i = 0; i < board.getContentCount(); i++) {
 			Content context = board.get(i);
@@ -119,11 +119,17 @@ public class Space {
 		}
 	}
 	
-	private void deleteContext() {
-		showContextsInfo();
+	private void deleteContent() {
+		showContentsInfo();
+		
+		Board board = um.getBoardByLog(log);
+		
+		if(board.getContentCount() == 0) {
+			System.out.println("게시글의 개수가 0개입니다.");
+			return;
+		}
 		
 		int index = inputNumber("삭제할 게시글 번호") - 1;
-		Board board = um.getBoardByLog(log);
 		
 		if(index < 0 || index >= board.getContentCount()) {
 			System.out.println("유효한 게시글 번호가 아닙니다.");
@@ -134,17 +140,21 @@ public class Space {
 		System.out.println("선택한 게시글이 삭제되었습니다.");
 	}
 	
-	private void updateContext(String message) {
+	private void updateContent(String message) {
 		// 게시물 수정
 		// 내 게시글 목록 (번호, 제목) 보여주기
 		// 번호 선택하면 해당 게시글로 보여주기
 		// 제목 수정 yes or no
 		// 내용 수정 yes or no
 		
-		int index = printContext("수정");
-		
 		Board board = um.getBoardByLog(log);
-		Content context = board.get(index);
+		
+		if(board.getContentCount() == 0) {
+			System.out.println("게시글의 개수가 0개입니다.");
+			return;
+		}
+		
+		int index = printContent("수정");
 		
 		int sel = inputNumber("제목 수정 1)yes 2)no : ");
 		if(sel < 1 || sel > 2) {
@@ -171,8 +181,8 @@ public class Space {
 		System.out.println("게시글이 성공적으로 수정되었습니다.");
 	}
 	
-	private int printContext(String message) {
-		showContextsInfo();
+	private int printContent(String message) {
+		showContentsInfo();
 		
 		int index = inputNumber(message + "할 게시글 번호") - 1;
 		Board board = um.getBoardByLog(log);
@@ -194,7 +204,7 @@ public class Space {
 		String data = "";
 		
 		for (User user : map.keySet()) {
-			data += user.getName() + "/";
+			data += user.getName() + "/" + user.getId() + "/" + user.getPassword() + "/";
 			Board board = um.getBoardByUser(user);
 			
 			for(int i = 0; i < board.getContentCount(); i++) {
@@ -228,21 +238,21 @@ public class Space {
 		
 		try {
 			while(br.ready()) {
-				String[] data = br.readLine().split("/");
-				String name = data[0];
-				String id = data[1];
-				String pw = data[2];
+				String[] info = br.readLine().split("/");
+				String name = info[0];
+				String id = info[1];
+				String pw = info[2];
 				
 				um.createUser(name, id, pw);
 				
 				User user = new User(name, id, pw);
 				Board board = um.getBoardByUser(user);
 				
-				if(data.length > 3) {
-					int size = (data.length - 3) / 2;
+				if(info.length > 3) {
+					int size = (info.length - 3) / 2;
 					for(int i = 0; i < size; i += 2) {
-						String title = data[i];
-						String text = data[i + 1];
+						String title = info[i];
+						String text = info[i + 1];
 						Content content = new Content(title, text);
 						board.addContext(content);
 					}
@@ -283,13 +293,13 @@ public class Space {
 	
 	private void runMyPage(int select) {
 		if(select == 1)
-			createContext();
+			createContent();
 		else if(select == 2)
-			deleteContext();
+			deleteContent();
 		else if(select == 3)
-			updateContext("수정");
+			updateContent("수정");
 		else if(select == 4)
-			printContext("조회");
+			printContent("조회");
 	}
 	
 	private void printMenu() {
