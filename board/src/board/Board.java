@@ -3,11 +3,11 @@ package board;
 import java.util.ArrayList;
 
 public class Board {
-	private ArrayList<Context> contexts;
+	private ArrayList<Content> contents;
 	private String id;
 	
 	public Board(String id) {
-		contexts = new ArrayList<Context>();
+		contents = new ArrayList<Content>();
 		this.id = id;
 	}
 	
@@ -15,24 +15,24 @@ public class Board {
 		return this.id;
 	}
 	
-	public void addContext(Context context) {
-		contexts.add(context);
+	public void addContext(Content content) {
+		contents.add(content);
 	}
 	
 	public void deleteContext(int index) {
-		contexts.remove(index);
+		contents.remove(index);
 	}
 	
 	public void updateContext(int index, int line) {
-		Context context = contexts.get(index);
+		Content context = contents.get(index);
 	}
 	
-	public Context get(int index) {
-		return contexts.get(index);
+	public Content get(int index) {
+		return contents.get(index);
 	}
 	
-	public int getContextCount() {
-		return contexts.size();
+	public int getContentCount() {
+		return contents.size();
 	}
 
 }
